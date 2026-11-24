@@ -56,6 +56,23 @@ reshuffles its discard pile when it runs dry, so the run ends when you do.
 
 Tune everything in `assets/config.json`.
 
+## Business model
+
+The game itself is **100% free** — no paywall, no ads, source under MIT. What is
+sold are **in-app purchases / add-ons**: extra decks, monsters, art packs,
+soundtracks.
+
+Add-ons are content, not code, so the open-source license and the store coexist:
+the engine stays MIT, packs stay data, and anyone can publish free packs too.
+
+## Roadmap
+
+- [ ] pack loader (`assets/packs/*.json`) + pack picker screen
+- [ ] acts: more monsters, escalating difficulty, relics
+- [ ] Web build (Emscripten) for itch.io
+- [ ] sprite-based cards (Art from the Sorceress pipeline)
+- [ ] unit tests for `Game` (deterministic seeds)
+
 ## License
 
 Code: MIT (see `LICENSE`). Font: Silkscreen, SIL Open Font License 1.1
