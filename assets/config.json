@@ -1,0 +1,16 @@
+{
+  "playerHp": 20,
+  "handSize": 4,
+  "monsters": [
+    { "name": "Goblin", "hp": 10 },
+    { "name": "Skeleton", "hp": 14 },
+    { "name": "Wraith", "hp": 18 },
+    { "name": "Dragon", "hp": 24 }
+  ],
+  "deck": [
+    { "suit": "sword",  "count": 9, "min": 2, "max": 6 },
+    { "suit": "shield", "count": 6, "min": 2, "max": 5 },
+    { "suit": "potion", "count": 6, "min": 2, "max": 4 },
+    { "suit": "curse",  "count": 5, "min": 1, "max": 4 }
+  ]
+}
