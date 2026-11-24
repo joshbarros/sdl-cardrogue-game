@@ -185,8 +185,7 @@ void drawMonster(cr::Renderer& r, const Game& g, const SDL_FRect& rect) {
 
     const std::string hpText =
         std::to_string(std::max(0, g.monsterHp())) + " / " + std::to_string(g.monsterMaxHp());
-    r.text(hpText, rect.x + rect.w * 0.5f, barY + 24.0f, 14, Color{0xc9, 0x8f, 0x9b, 255},
-           Align::Center);
+    r.text(hpText, rect.x + rect.w * 0.5f, barY + 5.0f, 16, white, Align::Center);
 }
 
 void drawHand(cr::Renderer& r, const Game& g, const Layout& l, int hoverIndex) {
@@ -367,13 +366,15 @@ int main(int argc, char** argv) {
             drawHand(renderer, game, layout, hover);
             drawFooter(renderer, game, width, height);
             if (game.over()) drawOverlay(renderer, game, width, height);
-            renderer.endFrame();
 
             if (!opts.shotPath.empty() && !shotSaved) {
+                // must read the backbuffer before it is presented
                 renderer.screenshot(opts.shotPath);
                 shotSaved = true;
                 running = false;
             }
+
+            renderer.endFrame();
         }
 
         renderer.shutdown();

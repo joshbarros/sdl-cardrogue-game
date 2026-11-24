@@ -105,11 +105,13 @@ void Renderer::line(float x1, float y1, float x2, float y2, Color c, float thick
     if (len <= 0.001f) return;
     const float nx = -dy / len * (thickness * 0.5f);
     const float ny = dx / len * (thickness * 0.5f);
+    const SDL_FColor fc{float(c.r) / 255.0f, float(c.g) / 255.0f, float(c.b) / 255.0f,
+                        float(c.a) / 255.0f};
     SDL_Vertex verts[4] = {
-        {{x1 + nx, y1 + ny}, {c.r, c.g, c.b, c.a}, {0, 0}},
-        {{x2 + nx, y2 + ny}, {c.r, c.g, c.b, c.a}, {0, 0}},
-        {{x2 - nx, y2 - ny}, {c.r, c.g, c.b, c.a}, {0, 0}},
-        {{x1 - nx, y1 - ny}, {c.r, c.g, c.b, c.a}, {0, 0}},
+        {{x1 + nx, y1 + ny}, fc, {0, 0}},
+        {{x2 + nx, y2 + ny}, fc, {0, 0}},
+        {{x2 - nx, y2 - ny}, fc, {0, 0}},
+        {{x1 - nx, y1 - ny}, fc, {0, 0}},
     };
     const int indices[6] = {0, 1, 2, 0, 2, 3};
     SDL_RenderGeometry(renderer_, nullptr, verts, 4, indices, 6);

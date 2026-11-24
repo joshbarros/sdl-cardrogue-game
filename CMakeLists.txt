@@ -14,6 +14,7 @@ endif()
 include(FetchContent)
 
 # --- SDL3 (static, no tests/examples) -------------------------------------
+set(BUILD_SHARED_LIBS OFF CACHE BOOL "" FORCE)
 set(SDL_SHARED OFF CACHE BOOL "" FORCE)
 set(SDL_STATIC ON  CACHE BOOL "" FORCE)
 set(SDL_TEST_LIBRARY OFF CACHE BOOL "" FORCE)
@@ -39,7 +40,18 @@ FetchContent_Declare(nlohmann_json
   GIT_SHALLOW TRUE
   GIT_PROGRESS TRUE)
 
-FetchContent_MakeAvailable(SDL3 SDL3_ttf nlohmann_json)
+FetchContent_MakeAvailable(SDL3)
+
+# When SDL3 comes from FetchContent it is a subproject, not an installed
+# package: it defines SDL3::SDL3 but not SDL3::Headers, which SDL3_ttf uses to
+# decide whether to call find_package(). Providing the target skips that.
+if(NOT TARGET SDL3::Headers)
+  add_library(SDL3::Headers INTERFACE IMPORTED)
+  set_target_properties(SDL3::Headers PROPERTIES
+    INTERFACE_LINK_LIBRARIES SDL3::SDL3)
+endif()
+
+FetchContent_MakeAvailable(SDL3_ttf nlohmann_json)
 
 # --- game ----------------------------------------------------------------
 add_executable(cardrogue
